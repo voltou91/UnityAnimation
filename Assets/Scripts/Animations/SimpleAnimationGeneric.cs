@@ -1,0 +1,181 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace Com.IsartDigital.Animations
+{
+    public class SimpleAnimationGeneric<T> : MonoBehaviour
+    {
+        [Header("Interpolation")]
+        [SerializeField] protected AnimationCurve m_InterpolationCurve = AnimationCurve.Linear(0, 0, 1, 1);
+
+        [Header("Values")]
+        [SerializeField] protected T m_InitialValue;
+        [SerializeField] protected T m_FinalValue;
+        [SerializeField] protected float m_Duration = 1;
+
+        [Header("Start")]
+        [SerializeField] protected bool m_StartOnEnable = true;
+        [SerializeField] protected float m_StartDelay = 0f;
+
+        [Header("Transitions type")]
+        [SerializeField] protected EaseType m_EaseType = EaseType.In;
+        [SerializeField] protected TransitionType m_TransitionType = TransitionType.Linear;
+
+        [Header("Events")]
+        public UnityEvent<T> OnValueUpdated = new UnityEvent<T>();
+        public UnityEvent OnAnimationBegin = new UnityEvent();
+        public UnityEvent OnAnimationEnd = new UnityEvent();
+
+        protected Func<float, float> m_EaseFunction { 
+            get {
+                switch (m_EaseType)
+                {
+                    case EaseType.Out:
+                        return Out;
+                    case EaseType.InOut:
+                        return InOut;
+                    case EaseType.OutIn:
+                        return OutIn;
+                    default:
+                        return In;
+                }
+            } 
+        }
+        protected bool m_IsDestroyed = false;
+        protected float m_ElapsedTime = 0;
+
+        protected static Dictionary<TransitionType, Func<float, float>> m_InterpolateFunctions = new Dictionary<TransitionType, Func<float, float>>()
+        {
+            { TransitionType.Linear, AnimationsRegistery.Linear },
+            { TransitionType.Sine, AnimationsRegistery.Sine },
+            { TransitionType.Quint, AnimationsRegistery.Quint },
+            { TransitionType.Quart, AnimationsRegistery.Quart },
+            { TransitionType.Quad, AnimationsRegistery.Quad },
+            { TransitionType.Expo, AnimationsRegistery.Expo },
+            { TransitionType.Elastic, AnimationsRegistery.Elastic },
+            { TransitionType.Cubic, AnimationsRegistery.Cubic },
+            { TransitionType.Circ, AnimationsRegistery.Circ },
+            { TransitionType.Bounce, AnimationsRegistery.Bounce },
+            { TransitionType.Back, AnimationsRegistery.Back }
+        };
+
+        public enum TransitionType
+        {
+            Linear,
+            Sine,
+            Quint,
+            Quart,
+            Quad,
+            Expo,
+            Elastic,
+            Cubic,
+            Circ,
+            Bounce,
+            Back
+        };
+
+        public enum EaseType
+        {
+            In,
+            Out,
+            InOut,
+            OutIn
+        };
+
+        protected virtual void Start()
+        {
+            if (m_Duration <= 0)
+            {
+                StopAnimation();
+                return;
+            }
+            m_ElapsedTime = Mathf.Abs(m_StartDelay);
+
+            if (m_StartOnEnable) StartAnimation();
+        }
+
+        public SimpleAnimationGeneric<T> SetupAnimation(T pInitialValue, T pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<T> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd, AnimationCurve pInterpolateCurve)
+        {
+            OnValueUpdated.AddListener((x) => pObject?.Invoke((T)x));
+            OnAnimationBegin.AddListener(() => pOnAnimationBegin?.Invoke());
+            OnAnimationEnd.AddListener(() => pOnAnimationEnd?.Invoke());
+            m_InitialValue = pInitialValue;
+            m_FinalValue = pFinalValue;
+            m_Duration = Mathf.Abs(pDuration);
+            m_StartDelay = Mathf.Abs(pBeginAfter);
+            m_TransitionType = pTransitionType;
+            m_EaseType = pEase;
+            if (pInterpolateCurve != null) m_InterpolationCurve = pInterpolateCurve;
+
+            return this;
+        }
+
+        protected IEnumerator<object> Animate()
+        {
+            yield return new WaitForSeconds(m_ElapsedTime);
+            m_ElapsedTime = 0;
+
+            while (!m_IsDestroyed)
+            {
+                if (m_ElapsedTime > m_Duration)
+                {
+                    OnValueUpdated?.Invoke(m_FinalValue);
+                    StopAnimation();
+                    yield return null;
+                }
+
+
+                OnValueUpdated?.Invoke(Evaluate(m_ElapsedTime / m_Duration));
+                m_ElapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        protected virtual T Evaluate(float pTime) { return default; }
+
+        public SimpleAnimationGeneric<T> StartAnimation()
+        {
+            if (m_IsDestroyed) return this;
+            StopAllCoroutines();
+
+            StartCoroutine(Animate());
+            OnAnimationBegin?.Invoke();
+            return this;
+        }
+
+        public void StopAnimation()
+        {
+            if (m_IsDestroyed) return;
+            m_IsDestroyed = true;
+            StopAllCoroutines();
+
+            OnAnimationEnd?.Invoke();
+            Destroy(this);
+        }
+
+        private float In(float pTime) => m_InterpolateFunctions[m_TransitionType](pTime);
+
+        /// <summary>
+        /// Reverse the "In" function
+        /// </summary>
+        /// <param name="pTime"></param>
+        private float Out(float pTime) => 1 - In(1 - pTime);
+        
+
+        /// <summary>
+        /// Play the "In" transition for the first half of the time then play the "Out" transition
+        /// </summary>
+        /// <param name="pTime"></param>
+        private float InOut(float pTime) => pTime > 0.5f ? 0.5f * Out(pTime * 2 - 1) + 0.5f : 0.5f * In(pTime * 2);
+        
+
+        /// <summary>
+        /// Play the "Out" transition for the first half of the time then play the "In" transition
+        /// </summary>
+        /// <param name="pTime"></param>
+        /// <returns></returns>
+        private float OutIn(float pTime) => pTime > 0.5f ? 0.5f * In(pTime * 2 - 1) + 0.5f : 0.5f * Out(pTime * 2);
+    }
+}
