@@ -1,3 +1,4 @@
+using Com.IsartDigital.Animations.Utils;
 using UnityEngine;
 
 namespace Com.IsartDigital.Animations.Examples

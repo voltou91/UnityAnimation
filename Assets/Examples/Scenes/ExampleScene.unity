@@ -230,6 +230,8 @@ GameObject:
   - component: {fileID: 1615658166}
   - component: {fileID: 1615658165}
   - component: {fileID: 1615658169}
+  - component: {fileID: 1615658172}
+  - component: {fileID: 1615658173}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -278,7 +280,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb3a8a7c365ece44aa5f7b766ac0cfc8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -341,40 +343,40 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 3.7929912
+      outSlope: 3.7929912
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.49125776
-      value: -0.43008494
-      inSlope: 0.07045847
-      outSlope: 0.07045847
-      tangentMode: 0
+      time: 0.2791741
+      value: 1.0589049
+      inSlope: 1.8556362
+      outSlope: 1.8556362
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.19179694
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.9166565
-      value: 1.0424118
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 0
+      time: 1
+      value: 1
+      inSlope: -0.0817186
+      outSlope: -0.0817186
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_InitialValue: {x: 0, y: 0, z: 0}
-  m_FinalValue: {x: 0, y: 1, z: 10}
   m_Duration: 5
   m_StartOnEnable: 1
   m_StartDelay: 0
   m_EaseType: 0
   m_TransitionType: 9
+  m_InitialValue: {x: 0, y: 0, z: 0}
+  m_FinalValue: {x: 1, y: 1, z: 10}
   OnValueUpdated:
     m_PersistentCalls:
       m_Calls:
@@ -398,7 +400,96 @@ MonoBehaviour:
       m_Calls: []
   _InterpolateX: 0
   _InterpolateY: 1
-  _InterpolateZ: 0
+  _InterpolateZ: 1
+--- !u!114 &1615658172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615658163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73699234825c2a44fabf6c6713d5b617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InterpolationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3.7929912
+      outSlope: 3.7929912
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2791741
+      value: 1.0589049
+      inSlope: 1.8556362
+      outSlope: 1.8556362
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.0817186
+      outSlope: -0.0817186
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Duration: 5
+  m_StartOnEnable: 1
+  m_StartDelay: 0
+  m_EaseType: 0
+  m_TransitionType: 9
+  m_InitialValue: {x: 0, y: 0, z: 0}
+  m_FinalValue: {x: 1, y: 1, z: 1}
+  OnValueUpdated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1615658168}
+        m_TargetAssemblyTypeName: UnityEngine.Transform, UnityEngine
+        m_MethodName: set_localScale
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnAnimationBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAnimationEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  _InterpolateX: 0
+  _InterpolateY: 1
+  _InterpolateZ: 1
+--- !u!114 &1615658173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615658163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c1ad5aa8e37e74d979c0c8911ec8a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _NumberOfPointPrecision: 100
 --- !u!1 &1993194554
 GameObject:
   m_ObjectHideFlags: 0
