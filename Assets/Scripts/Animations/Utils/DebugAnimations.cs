@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -16,18 +17,13 @@ namespace Com.IsartDigital.Animations.Utils
 
         private Mesh _Mesh => GetComponent<MeshFilter>().sharedMesh;
         private Color _Color => GetComponent<MeshRenderer>().sharedMaterial.color;
-        private List<AnimationBase> _Animations = new List<AnimationBase>();
 
-        public static DebugAnimations GetOrCreate(MonoBehaviour pGameObject)
-        {
-            if (!pGameObject.TryGetComponent(out DebugAnimations lDebugAnimation)) lDebugAnimation = pGameObject.AddComponent<DebugAnimations>();
-            
-            return lDebugAnimation;
-        }
+        private void Start() => Destroy(this);
 
         private bool _IsInit = false;
         private float _ElapsedTime;
         private float _MaxAnimationTime = 0;
+        private DateTime _LastTime;
         private void OnDrawGizmosSelected()
         {
             if (Application.isPlaying) return;
@@ -35,6 +31,7 @@ namespace Com.IsartDigital.Animations.Utils
             if (!_IsInit)
             {
                 _IsInit = true;
+                _LastTime = DateTime.Now;
                 Position = Vector3.zero;
                 Rotation = Quaternion.identity;
                 Scale = Vector3.one;
@@ -57,7 +54,8 @@ namespace Com.IsartDigital.Animations.Utils
                 DrawMesh();
             }
 
-            _ElapsedTime += Time.fixedDeltaTime;
+            _ElapsedTime += (DateTime.Now - _LastTime).Milliseconds * 0.001f;
+            _LastTime = DateTime.Now;
             if (_ElapsedTime > _MaxAnimationTime) _IsInit = false;
         }
 

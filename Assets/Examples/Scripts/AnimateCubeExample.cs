@@ -1,5 +1,6 @@
 using Com.IsartDigital.Animations.Utils;
 using UnityEngine;
+using static Com.IsartDigital.Animations.AnimationBase;
 
 namespace Com.IsartDigital.Animations.Examples
 {
@@ -15,8 +16,8 @@ namespace Com.IsartDigital.Animations.Examples
         [SerializeField] private AnimationMode _AnimationMode = AnimationMode.Simple;
         [SerializeField] private float _AnimationDuration = 3.5f;
         [SerializeField] private float _AnimationStartDelay = 0.5f;
-        [SerializeField] private Vector3Animation.TransitionType _TransitionType = Vector3Animation.TransitionType.Linear;
-        [SerializeField] private Vector3Animation.EaseType _EaseType = Vector3Animation.EaseType.In;
+        [SerializeField] private TransitionType _TransitionType = TransitionType.Linear;
+        [SerializeField] private EaseType _EaseType = EaseType.In;
         void Start()
         {
             switch (_AnimationMode)
