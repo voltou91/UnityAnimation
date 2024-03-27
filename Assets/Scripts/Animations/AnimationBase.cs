@@ -6,9 +6,6 @@ namespace Com.IsartDigital.Animations
 {
     public class AnimationBase : MonoBehaviour
     {
-        [Header("Interpolation")]
-        [SerializeField] protected AnimationCurve m_InterpolationCurve = AnimationCurve.Linear(0, 0, 1, 1);
-
         protected bool m_HasFinised = false;
         protected bool m_IsDestroyed = false;
         protected float m_ElapsedTime = 0;

@@ -337,39 +337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73699234825c2a44fabf6c6713d5b617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InterpolationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 3.7929912
-      outSlope: 3.7929912
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2791741
-      value: 1.0589049
-      inSlope: 1.8556362
-      outSlope: 1.8556362
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.0817186
-      outSlope: -0.0817186
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   m_Duration: 5
   m_StartOnEnable: 1
   m_StartDelay: 0
@@ -398,9 +365,96 @@ MonoBehaviour:
   OnAnimationEnd:
     m_PersistentCalls:
       m_Calls: []
-  _InterpolateX: 0
-  _InterpolateY: 1
-  _InterpolateZ: 1
+  _InterpolateX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.40318552
+      value: 1.1969731
+      inSlope: 1.1730378
+      outSlope: 1.1730378
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _InterpolateY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.2488482
+      outSlope: 1.2488482
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5031398
+      value: 0.62834525
+      inSlope: 2.9722126
+      outSlope: 2.9722126
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06881432
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.74800664
+      outSlope: 0.74800664
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _InterpolateZ:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1615658172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,44 +467,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73699234825c2a44fabf6c6713d5b617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InterpolationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 3.7929912
-      outSlope: 3.7929912
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.2791741
-      value: 1.0589049
-      inSlope: 1.8556362
-      outSlope: 1.8556362
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.0817186
-      outSlope: -0.0817186
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   m_Duration: 5
   m_StartOnEnable: 1
   m_StartDelay: 0
   m_EaseType: 0
-  m_TransitionType: 9
+  m_TransitionType: 0
   m_InitialValue: {x: 0, y: 0, z: 0}
   m_FinalValue: {x: 1, y: 1, z: 1}
   OnValueUpdated:
@@ -474,9 +495,78 @@ MonoBehaviour:
   OnAnimationEnd:
     m_PersistentCalls:
       m_Calls: []
-  _InterpolateX: 0
-  _InterpolateY: 1
-  _InterpolateZ: 1
+  _InterpolateX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _InterpolateY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _InterpolateZ:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1615658173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c1ad5aa8e37e74d979c0c8911ec8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _NumberOfPointPrecision: 100
+  _NumberOfPointPrecision: 250
 --- !u!1 &1993194554
 GameObject:
   m_ObjectHideFlags: 0

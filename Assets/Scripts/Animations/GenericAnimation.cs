@@ -20,7 +20,7 @@ namespace Com.IsartDigital.Animations
         public T InitialValue { get => m_InitialValue; private set => m_InitialValue = value; }
         public T FinalValue { get => m_FinalValue; private set => m_FinalValue = value; }
 
-        public GenericAnimation<T> SetupAnimation(T pInitialValue, T pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<T> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd, AnimationCurve pInterpolateCurve)
+        public GenericAnimation<T> SetupAnimation(T pInitialValue, T pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<T> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd)
         {
             OnValueUpdated.AddListener((x) => pObject?.Invoke((T)x));
             OnAnimationBegin.AddListener(() => pOnAnimationBegin?.Invoke());
@@ -31,9 +31,40 @@ namespace Com.IsartDigital.Animations
             m_StartDelay = Mathf.Abs(pBeginAfter);
             m_TransitionType = pTransitionType;
             m_EaseType = pEase;
-            if (pInterpolateCurve != null) m_InterpolationCurve = pInterpolateCurve;
 
             return this;
+        }
+
+        protected virtual void Start()
+        {
+            if (m_Duration <= 0)
+            {
+                StopAnimation();
+                return;
+            }
+            m_ElapsedTime = Mathf.Abs(m_StartDelay);
+
+            if (m_StartOnEnable) StartAnimation();
+        }
+
+        public GenericAnimation<T> StartAnimation()
+        {
+            if (m_IsDestroyed) return this;
+            StopAllCoroutines();
+
+            StartCoroutine(Animate());
+            OnAnimationBegin?.Invoke();
+            return this;
+        }
+
+        public void StopAnimation()
+        {
+            if (m_IsDestroyed) return;
+            m_IsDestroyed = true;
+            StopAllCoroutines();
+
+            OnAnimationEnd?.Invoke();
+            Destroy(this);
         }
 
         protected IEnumerator<object> Animate()
@@ -58,25 +89,5 @@ namespace Com.IsartDigital.Animations
         }
 
         public virtual T Evaluate(float pTime) => default;
-
-        public GenericAnimation<T> StartAnimation()
-        {
-            if (m_IsDestroyed) return this;
-            StopAllCoroutines();
-
-            StartCoroutine(Animate());
-            OnAnimationBegin?.Invoke();
-            return this;
-        }
-
-        public void StopAnimation()
-        {
-            if (m_IsDestroyed) return;
-            m_IsDestroyed = true;
-            StopAllCoroutines();
-
-            OnAnimationEnd?.Invoke();
-            Destroy(this);
-        }
     }
 }
