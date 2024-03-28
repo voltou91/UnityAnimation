@@ -24,9 +24,9 @@ namespace Com.IsartDigital.Animations
 
         public GenericAnimation<Vector3> SetupAnimation(Vector3 pInitialValue, Vector3 pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<Vector3> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd, AnimationCurve pInterpolateX, AnimationCurve pInterpolateY, AnimationCurve pInterpolateZ)
         {
-            _InterpolateX = pInterpolateX;
-            _InterpolateY = pInterpolateX;
-            _InterpolateZ = pInterpolateZ;
+            if (pInterpolateX != null) _InterpolateX = pInterpolateX;
+            if (pInterpolateY != null) _InterpolateY = pInterpolateY;
+            if (pInterpolateZ != null) _InterpolateZ = pInterpolateZ;
             SetupAnimation(pInitialValue, pFinalValue, pDuration, pBeginAfter, pTransitionType, pEase, pObject, pOnAnimationBegin, pOnAnimationEnd);
 
             return this;

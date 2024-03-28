@@ -23,10 +23,10 @@ namespace Com.IsartDigital.Animations.Examples
             switch (_AnimationMode)
             {
                 case AnimationMode.Simple:
-                    this.BeginVector3Animation(Vector3.zero, Vector3.forward * 10, _AnimationDuration, _AnimationStartDelay, pValueToReceive: x => transform.position = x);
+                    this.BeginAnimation(Vector3.zero, Vector3.forward * 10, _AnimationDuration, _AnimationStartDelay, pValueToReceive: x => transform.position = x);
                     break;
                 case AnimationMode.WithTransitionAndEase:
-                    this.BeginVector3Animation(Vector3.zero, Vector3.forward * 10, _AnimationDuration, _AnimationStartDelay, _TransitionType, _EaseType, x => transform.position = x);
+                    this.BeginAnimation(Vector3.zero, Vector3.forward * 10, _AnimationDuration, _AnimationStartDelay, _TransitionType, _EaseType, x => transform.position = x);
                     break;
                 case AnimationMode.Loop:
                     BeginNewAnimationLoop();
@@ -38,7 +38,7 @@ namespace Com.IsartDigital.Animations.Examples
 
         private void BeginNewAnimationLoop()
         {
-            this.BeginVector3Animation(Vector3.zero, Vector3.forward * 10, _AnimationDuration, _AnimationStartDelay, _TransitionType, _EaseType, x => transform.position = x, () => print("Animation begin !"), BeginNewAnimationLoop);
+            this.BeginAnimation(Vector3.zero, Vector3.forward * 10, _AnimationDuration, _AnimationStartDelay, _TransitionType, _EaseType, x => transform.position = x, () => print("Animation begin !"), BeginNewAnimationLoop);
         }
     }
 }
