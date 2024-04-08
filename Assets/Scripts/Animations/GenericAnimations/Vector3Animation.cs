@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
 
+//Author: Lilian Lafond
 namespace Com.IsartDigital.Animations
 {
-    public class Vector3Animation : GenericAnimation<Vector3>
+    public class Vector3Animation : GenericAnimation<Vector3, Vector3>
     {
         [Header("Interpolate Vector3 parameters")]
         [SerializeField] private AnimationCurve _InterpolateX = AnimationCurve.Linear(0, 0, 1, 1);
@@ -12,17 +13,17 @@ namespace Com.IsartDigital.Animations
 
         public override Vector3 Evaluate(float pTime)
         {
-            pTime = GetRatio(pTime);
             Vector3 lValue = (m_FinalValue - m_InitialValue);
+            float lEaseValue = m_EaseFunction(GetRatio(pTime)) * m_Duration;
 
             return m_InitialValue + new Vector3(
-                lValue.x * _InterpolateX.Evaluate(m_EaseFunction(pTime)), 
-                lValue.y * _InterpolateY.Evaluate(m_EaseFunction(pTime)), 
-                lValue.z * _InterpolateZ.Evaluate(m_EaseFunction(pTime))
+                lValue.x * _InterpolateX.Evaluate(lEaseValue), 
+                lValue.y * _InterpolateY.Evaluate(lEaseValue), 
+                lValue.z * _InterpolateZ.Evaluate(lEaseValue)
                 );
         }
 
-        public GenericAnimation<Vector3> SetupAnimation(Vector3 pInitialValue, Vector3 pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<Vector3> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd, AnimationCurve pInterpolateX, AnimationCurve pInterpolateY, AnimationCurve pInterpolateZ)
+        public GenericAnimation<Vector3, Vector3> SetupAnimation(Vector3 pInitialValue, Vector3 pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<Vector3> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd, AnimationCurve pInterpolateX, AnimationCurve pInterpolateY, AnimationCurve pInterpolateZ)
         {
             if (pInterpolateX != null) _InterpolateX = pInterpolateX;
             if (pInterpolateY != null) _InterpolateY = pInterpolateY;
