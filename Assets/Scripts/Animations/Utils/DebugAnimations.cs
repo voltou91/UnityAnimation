@@ -12,6 +12,9 @@ namespace Com.IsartDigital.Animations.Utils
         [Range(0, 250)] public uint NumberOfPointPrecision = 100;
 
         private const string DEBUGGER_NAME = "Animation Debugger";
+        private const string GLOBAL_POSITION = "set_position";
+        private const string LOCAL_POSITION = "set_localPosition";
+
         public GameObject AnimationDebugger { get; private set; }
 
         private List<AnimationBase> _Animations = new List<AnimationBase>();
@@ -41,9 +44,6 @@ namespace Com.IsartDigital.Animations.Utils
             {
                 _IsInit = true;
                 _LastTime = DateTime.Now;
-                AnimationDebugger.transform.position = Vector3.zero;
-                AnimationDebugger.transform.rotation = Quaternion.identity;
-                AnimationDebugger.transform.localScale = Vector3.one;
                 _ElapsedTime = -_Animations.Max(x => x.StartDelay);
                 _MaxAnimationTime = _Animations.Max(x => x.Duration);
             }
@@ -61,7 +61,8 @@ namespace Com.IsartDigital.Animations.Utils
 
         private GameObject GetOrCreateAnimationDebugger()
         {
-            GameObject lGameObject = GetComponentsInChildren<Transform>().Where(x => x.name == DEBUGGER_NAME).FirstOrDefault()?.gameObject ?? CreateDebugger();
+            UnityEditorInternal.InternalEditorUtility.AddTag(DEBUGGER_NAME);
+            GameObject lGameObject = GetComponentsInChildren<Transform>().Where(x => x.CompareTag(DEBUGGER_NAME)).FirstOrDefault()?.gameObject ?? CreateDebugger();
             
             lGameObject.transform.parent = transform;
 
@@ -71,6 +72,7 @@ namespace Com.IsartDigital.Animations.Utils
         private GameObject CreateDebugger()
         {
             GameObject lGameObject = Instantiate(gameObject);
+            lGameObject.tag = DEBUGGER_NAME;
             lGameObject.name = DEBUGGER_NAME;
             foreach (AnimationBase lComponent in lGameObject.GetComponents<AnimationBase>()) DestroyImmediate(lComponent);
             foreach (DebugAnimations lComponent in lGameObject.GetComponents<DebugAnimations>()) DestroyImmediate(lComponent);
@@ -83,8 +85,8 @@ namespace Com.IsartDigital.Animations.Utils
             int lCount = dynamicAnimation.OnValueUpdated.GetPersistentEventCount();
             for (int i = 0; i < lCount; i++)
             {
-                if (dynamicAnimation.OnValueUpdated.GetPersistentMethodName(i).Contains("set_position")) DrawLine(dynamicAnimation as Vector3Animation);
-                if (dynamicAnimation.OnValueUpdated.GetPersistentMethodName(i).Contains("set_localPosition")) DrawLine(dynamicAnimation as Vector3Animation, true);
+                if (dynamicAnimation.OnValueUpdated.GetPersistentMethodName(i).Contains(GLOBAL_POSITION)) DrawLine(dynamicAnimation as Vector3Animation);
+                if (dynamicAnimation.OnValueUpdated.GetPersistentMethodName(i).Contains(LOCAL_POSITION)) DrawLine(dynamicAnimation as Vector3Animation, true);
             }
 
             InvokeOnTargets(dynamicAnimation.OnValueUpdated, AnimationDebugger, dynamicAnimation.Evaluate(_ElapsedTime));
@@ -135,5 +137,7 @@ namespace Com.IsartDigital.Animations.Utils
             }
             Gizmos.DrawLine(lLastPos, pAnimation.FinalValue + (pIsLocal ? transform.position : Vector3.zero));
         }
+
+        private void OnApplicationQuit() => Destroy();
     }
 }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+//Author: Lilian Lafond
 namespace Com.IsartDigital.Animations
 {
-    public class GenericAnimation<T> : AnimationBase
+    public class GenericAnimation<T, U> : AnimationBase
     {
         [Header("Values")]
         [SerializeField] protected T m_InitialValue;
@@ -13,16 +14,16 @@ namespace Com.IsartDigital.Animations
 
 
         [Header("Events")]
-        public UnityEvent<T> OnValueUpdated = new UnityEvent<T>();
+        public UnityEvent<U> OnValueUpdated = new UnityEvent<U>();
         public UnityEvent OnAnimationBegin = new UnityEvent();
         public UnityEvent OnAnimationEnd = new UnityEvent();
 
         public T InitialValue { get => m_InitialValue; private set => m_InitialValue = value; }
         public T FinalValue { get => m_FinalValue; private set => m_FinalValue = value; }
 
-        public GenericAnimation<T> SetupAnimation(T pInitialValue, T pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<T> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd)
+        public GenericAnimation<T, U> SetupAnimation(T pInitialValue, T pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<U> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd)
         {
-            OnValueUpdated.AddListener((x) => pObject?.Invoke((T)x));
+            OnValueUpdated.AddListener((x) => pObject?.Invoke((U)x));
             OnAnimationBegin.AddListener(() => pOnAnimationBegin?.Invoke());
             OnAnimationEnd.AddListener(() => pOnAnimationEnd?.Invoke());
             m_InitialValue = pInitialValue;
@@ -47,7 +48,7 @@ namespace Com.IsartDigital.Animations
             if (m_StartOnEnable) StartAnimation();
         }
 
-        public GenericAnimation<T> StartAnimation()
+        public GenericAnimation<T, U> StartAnimation()
         {
             if (m_IsDestroyed) return this;
             StopAllCoroutines();
@@ -77,7 +78,7 @@ namespace Com.IsartDigital.Animations
                 if (m_ElapsedTime > m_Duration)
                 {
                     m_HasFinised = true;
-                    OnValueUpdated?.Invoke(m_FinalValue);
+                    OnValueUpdated?.Invoke(Evaluate(m_Duration));
                     StopAnimation();
                     yield return null;
                 }
@@ -88,6 +89,6 @@ namespace Com.IsartDigital.Animations
             }
         }
 
-        public virtual T Evaluate(float pTime) => default;
+        public virtual U Evaluate(float pTime) => default;
     }
 }

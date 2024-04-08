@@ -2,6 +2,7 @@ using Com.IsartDigital.Animations.Utils;
 using UnityEngine;
 using static Com.IsartDigital.Animations.AnimationBase;
 
+//Author: Lilian Lafond
 namespace Com.IsartDigital.Animations.Examples
 {
     public class AnimateCubeExample : MonoBehaviour

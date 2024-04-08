@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Author: Lilian Lafond
 namespace Com.IsartDigital.Animations
 {
     public class AnimationBase : MonoBehaviour
@@ -21,6 +22,7 @@ namespace Com.IsartDigital.Animations
         [SerializeField] protected EaseType m_EaseType = EaseType.In;
         [SerializeField] protected TransitionType m_TransitionType = TransitionType.Linear;
 
+        public const string DURATION_NAME = nameof(m_Duration);
         public float StartDelay { get => m_StartDelay; private set => m_StartDelay = value; }
         public float Duration { get => m_Duration; private set => m_Duration = value; }
 
@@ -80,8 +82,6 @@ namespace Com.IsartDigital.Animations
             }
         }
 
-        protected float GetRatio(float pTime) => pTime / m_Duration;
-
         public bool HasFinished() => m_HasFinised;
 
         private float In(float pTime) => m_InterpolateFunctions[m_TransitionType](pTime);
@@ -106,5 +106,7 @@ namespace Com.IsartDigital.Animations
         /// <param name="pTime"></param>
         /// <returns></returns>
         private float OutIn(float pTime) => pTime > 0.5f ? 0.5f * In(pTime * 2 - 1) + 0.5f : 0.5f * Out(pTime * 2);
+
+        public float GetRatio(float pTime) => pTime / m_Duration;
     }
 }
