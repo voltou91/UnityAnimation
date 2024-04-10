@@ -6,7 +6,7 @@ using UnityEngine.Events;
 //Author: Lilian Lafond
 namespace Com.IsartDigital.Animations
 {
-    public class GenericAnimation<T, U> : AnimationBase
+    public abstract class GenericAnimation<T, U> : AnimationBase
     {
         [Header("Values")]
         [SerializeField] protected T m_InitialValue;
@@ -23,6 +23,9 @@ namespace Com.IsartDigital.Animations
 
         public GenericAnimation<T, U> SetupAnimation(T pInitialValue, T pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<U> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd)
         {
+            if (m_IsInitialised) return this;
+
+            m_IsInitialised = true;
             OnValueUpdated.AddListener((x) => pObject?.Invoke((U)x));
             OnAnimationBegin.AddListener(() => pOnAnimationBegin?.Invoke());
             OnAnimationEnd.AddListener(() => pOnAnimationEnd?.Invoke());
@@ -48,17 +51,17 @@ namespace Com.IsartDigital.Animations
             if (m_StartOnEnable) StartAnimation();
         }
 
-        public GenericAnimation<T, U> StartAnimation()
+        public override void StartAnimation()
         {
-            if (m_IsDestroyed) return this;
+            if (m_IsDestroyed) return;
             StopAllCoroutines();
 
             StartCoroutine(Animate());
             OnAnimationBegin?.Invoke();
-            return this;
+            return;
         }
 
-        public void StopAnimation()
+        public override void StopAnimation()
         {
             if (m_IsDestroyed) return;
             m_IsDestroyed = true;
@@ -73,22 +76,22 @@ namespace Com.IsartDigital.Animations
             yield return new WaitForSeconds(m_ElapsedTime);
             m_ElapsedTime = 0;
 
-            while (!m_HasFinised)
+            while (!m_HasFinished)
             {
                 if (m_ElapsedTime > m_Duration)
                 {
-                    m_HasFinised = true;
+                    m_HasFinished = true;
                     OnValueUpdated?.Invoke(Evaluate(m_Duration));
                     StopAnimation();
                     yield return null;
                 }
 
-                OnValueUpdated?.Invoke(Evaluate(m_ElapsedTime));
+                OnValueUpdated?.Invoke(Evaluate(m_EaseFunction(GetRatio(m_ElapsedTime)) * m_Duration));
                 m_ElapsedTime += Time.deltaTime;
                 yield return null;
             }
         }
 
-        public virtual U Evaluate(float pTime) => default;
+        public abstract U Evaluate(float pTime);
     }
 }

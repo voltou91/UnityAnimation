@@ -15,13 +15,12 @@ namespace Com.IsartDigital.Animations
         public override Color Evaluate(float pTime)
         {
             Color lValue = (m_FinalValue - m_InitialValue);
-            float lEaseValue = m_EaseFunction(GetRatio(pTime)) * m_Duration;
 
             return m_InitialValue + new Color(
-                lValue.r * _InterpolateR.Evaluate(lEaseValue), 
-                lValue.g * _InterpolateG.Evaluate(lEaseValue), 
-                lValue.b * _InterpolateB.Evaluate(lEaseValue),
-                lValue.a * _InterpolateA.Evaluate(lEaseValue)
+                lValue.r * _InterpolateR.Evaluate(pTime), 
+                lValue.g * _InterpolateG.Evaluate(pTime), 
+                lValue.b * _InterpolateB.Evaluate(pTime),
+                lValue.a * _InterpolateA.Evaluate(pTime)
                 );
         }
 

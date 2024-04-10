@@ -5,9 +5,10 @@ using UnityEngine;
 //Author: Lilian Lafond
 namespace Com.IsartDigital.Animations
 {
-    public class AnimationBase : MonoBehaviour
+    public abstract class AnimationBase : MonoBehaviour
     {
-        protected bool m_HasFinised = false;
+        protected bool m_HasFinished = false;
+        protected bool m_IsInitialised = false;
         protected bool m_IsDestroyed = false;
         protected float m_ElapsedTime = 0;
 
@@ -82,7 +83,10 @@ namespace Com.IsartDigital.Animations
             }
         }
 
-        public bool HasFinished() => m_HasFinised;
+        public abstract void StartAnimation();
+        public abstract void StopAnimation();
+
+        public bool HasFinished() => m_HasFinished;
 
         private float In(float pTime) => m_InterpolateFunctions[m_TransitionType](pTime);
 

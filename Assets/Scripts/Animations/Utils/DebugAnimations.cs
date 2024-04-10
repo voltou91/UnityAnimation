@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEditorInternal;
 
 namespace Com.IsartDigital.Animations.Utils
 {
@@ -61,7 +62,7 @@ namespace Com.IsartDigital.Animations.Utils
 
         private GameObject GetOrCreateAnimationDebugger()
         {
-            UnityEditorInternal.InternalEditorUtility.AddTag(DEBUGGER_NAME);
+            InternalEditorUtility.AddTag(DEBUGGER_NAME);
             GameObject lGameObject = GetComponentsInChildren<Transform>().Where(x => x.CompareTag(DEBUGGER_NAME)).FirstOrDefault()?.gameObject ?? CreateDebugger();
             
             lGameObject.transform.parent = transform;
@@ -137,7 +138,5 @@ namespace Com.IsartDigital.Animations.Utils
             }
             Gizmos.DrawLine(lLastPos, pAnimation.FinalValue + (pIsLocal ? transform.position : Vector3.zero));
         }
-
-        private void OnApplicationQuit() => Destroy();
     }
 }

@@ -14,13 +14,11 @@ namespace Com.IsartDigital.Animations
         public override Quaternion Evaluate(float pTime)
         {
             Vector3 lValue = (m_FinalValue - m_InitialValue);
-            float lEaseValue = m_EaseFunction(GetRatio(pTime)) * m_Duration;
 
-            print(lEaseValue);
             return Quaternion.Euler(
-                lValue.x * _InterpolateX.Evaluate(lEaseValue),
-                lValue.y * _InterpolateY.Evaluate(lEaseValue),
-                lValue.z * _InterpolateZ.Evaluate(lEaseValue)
+                lValue.x * _InterpolateX.Evaluate(pTime),
+                lValue.y * _InterpolateY.Evaluate(pTime),
+                lValue.z * _InterpolateZ.Evaluate(pTime)
                 ) * Quaternion.Euler(m_InitialValue);
         }
 

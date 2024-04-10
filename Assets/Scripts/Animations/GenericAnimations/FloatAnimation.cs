@@ -11,7 +11,7 @@ namespace Com.IsartDigital.Animations
 
         public override float Evaluate(float pTime)
         {
-            return m_InitialValue + (m_FinalValue - m_InitialValue) * _Interpolate.Evaluate(m_EaseFunction(GetRatio(pTime)) * m_Duration); 
+            return m_InitialValue + (m_FinalValue - m_InitialValue) * _Interpolate.Evaluate(pTime); 
         }
 
         public GenericAnimation<float, float> SetupAnimation(float pInitialValue, float pFinalValue, float pDuration, float pBeginAfter, TransitionType pTransitionType, EaseType pEase, Action<float> pObject, Action pOnAnimationBegin, Action pOnAnimationEnd, AnimationCurve pInterpolate)
