@@ -13,11 +13,10 @@ namespace Com.IsartDigital.Animations
         public override Vector2 Evaluate(float pTime)
         {
             Vector2 lValue = (m_FinalValue - m_InitialValue);
-            float lEaseValue = m_EaseFunction(GetRatio(pTime)) * m_Duration;
 
             return m_InitialValue + new Vector2(
-                lValue.x * _InterpolateX.Evaluate(lEaseValue), 
-                lValue.y * _InterpolateY.Evaluate(lEaseValue)
+                lValue.x * _InterpolateX.Evaluate(pTime), 
+                lValue.y * _InterpolateY.Evaluate(pTime)
                 );
         }
 

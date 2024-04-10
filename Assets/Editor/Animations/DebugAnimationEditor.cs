@@ -17,26 +17,26 @@ namespace Com.IsartDigital.Animations
         
         public override void OnInspectorGUI()
         {
-            DrawCategory(Color.green);
+            NewCategory(Color.green);
             if (GUILayout.Button("Simulate all animations", GUILayout.MinHeight(BUTTON_HEIGHT)))
             {
                 _DebugAnimation.RegisterAnimations(_DebugAnimation.GetComponentsInChildren<AnimationBase>().ToList());
             }
 
-            DrawCategory(Color.red);
+            NewCategory(Color.red);
             if (GUILayout.Button("Stop simulations", GUILayout.MinHeight(BUTTON_HEIGHT)))
             {
                 _DebugAnimation.Destroy();
                 return;
             }
 
-            DrawCategory(Color.white);
+            NewCategory(Color.white);
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DebugAnimations.NumberOfPointPrecision)));
 
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void DrawCategory(Color pColor)
+        private void NewCategory(Color pColor)
         {
             GUILayout.Space(ELEMENT_DISTANCE);
             GUI.backgroundColor = pColor;

@@ -1,4 +1,6 @@
 using Com.IsartDigital.Animations.Utils;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -37,30 +39,32 @@ namespace Com.IsartDigital.Animations
             SerializedProperty lProperty = serializedObject.GetIterator();
 
             AnimationCurve lCurve;
+            List<Keyframe> lKeys;
             while (lProperty.Next(true))
             {
                 if ((lCurve = lProperty.animationCurveValue) != null)
                 {
-                    if (_Animation.Duration > 0 && lCurve.keys.Length < 3)
-                    {
-                        lCurve.AddKey(new Keyframe(0, 0));
-                        lCurve.AddKey(new Keyframe(_Animation.Duration, 1));
-                        lCurve.AddKey(new Keyframe(_Animation.Duration * MULTIPLICATOR, MULTIPLICATOR));
-                    }
+                    lKeys = lCurve.keys.ToList();
 
-                    UpdateKeyFrame(lCurve, 0, new Keyframe(0, 0));
-                    UpdateKeyFrame(lCurve, lCurve.keys.Length - 2, new Keyframe(_Animation.Duration, 1));
-                    UpdateKeyFrame(lCurve, lCurve.keys.Length - 1, new Keyframe(_Animation.Duration * MULTIPLICATOR, MULTIPLICATOR));
+                    if (_Animation.Duration > 0) while (lKeys.Count < 3) lKeys.Add(new Keyframe());
+                    
+                    UpdateKeyFrame(lCurve, 0, lKeys, new Keyframe(0, 0));
+                    UpdateKeyFrame(lCurve, lKeys.Count - 2, lKeys, new Keyframe(_Animation.Duration, 1));
+                    UpdateKeyFrame(lCurve, lKeys.Count - 1, lKeys, new Keyframe(_Animation.Duration * MULTIPLICATOR, MULTIPLICATOR));
 
+                    lCurve.keys = lKeys.ToArray();
                     lProperty.animationCurveValue = lCurve;
                 }
             }
         }
 
-        private void UpdateKeyFrame(AnimationCurve pCurve, int pIndex, Keyframe pKeyFrame)
+        private void UpdateKeyFrame(AnimationCurve pCurve, int pIndex, List<Keyframe> pKeys, Keyframe pKeyFrame)
         {
-            pCurve.MoveKey(pIndex, pKeyFrame);
-            pCurve.SmoothTangents(pIndex, 0);
+            if (pIndex >= pCurve.keys.Length) return;
+
+            pKeyFrame.inTangent = 1f/_Animation.Duration;
+            pKeyFrame.outTangent = 1f/_Animation.Duration;
+            pKeys[pIndex] = pKeyFrame;
         }
     }
 }
