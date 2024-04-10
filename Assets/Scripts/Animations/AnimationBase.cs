@@ -15,7 +15,7 @@ namespace Com.IsartDigital.Animations
         [SerializeField] protected float m_Duration = 1;
 
         [Header("Start")]
-        [SerializeField] protected bool m_StartOnEnable = true;
+        [SerializeField] protected bool m_StartOnEnable = false;
         [SerializeField] protected float m_StartDelay = 0f;
 
 

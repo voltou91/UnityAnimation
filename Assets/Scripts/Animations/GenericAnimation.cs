@@ -26,13 +26,13 @@ namespace Com.IsartDigital.Animations
             if (m_IsInitialised) return this;
 
             m_IsInitialised = true;
-            OnValueUpdated.AddListener((x) => pObject?.Invoke((U)x));
-            OnAnimationBegin.AddListener(() => pOnAnimationBegin?.Invoke());
-            OnAnimationEnd.AddListener(() => pOnAnimationEnd?.Invoke());
+            if (pObject != null) OnValueUpdated.AddListener(pObject.Invoke);
+            if (pOnAnimationBegin != null) OnAnimationBegin.AddListener(pOnAnimationBegin.Invoke);
+            if (pOnAnimationEnd != null) OnAnimationEnd.AddListener(pOnAnimationEnd.Invoke);
             m_InitialValue = pInitialValue;
             m_FinalValue = pFinalValue;
             m_Duration = Mathf.Abs(pDuration);
-            m_StartDelay = Mathf.Abs(pBeginAfter);
+            m_StartDelay = pBeginAfter;
             m_TransitionType = pTransitionType;
             m_EaseType = pEase;
 
@@ -46,7 +46,6 @@ namespace Com.IsartDigital.Animations
                 StopAnimation();
                 return;
             }
-            m_ElapsedTime = Mathf.Abs(m_StartDelay);
 
             if (m_StartOnEnable) StartAnimation();
         }
@@ -73,8 +72,7 @@ namespace Com.IsartDigital.Animations
 
         protected IEnumerator<object> Animate()
         {
-            yield return new WaitForSeconds(m_ElapsedTime);
-            m_ElapsedTime = 0;
+            yield return new WaitForSeconds(Mathf.Abs(m_StartDelay));
 
             while (!m_HasFinished)
             {

@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 828645309}
   - component: {fileID: 828645308}
   - component: {fileID: 828645307}
-  - component: {fileID: 828645312}
+  - component: {fileID: 828645311}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -323,7 +323,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &828645312
+--- !u!114 &828645311
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,154 +332,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 828645306}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73699234825c2a44fabf6c6713d5b617, type: 3}
+  m_Script: {fileID: 11500000, guid: 128456a4736f2584e8a8c26d71b61dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Duration: 2.5
-  m_StartOnEnable: 1
-  m_StartDelay: 0
-  m_EaseType: 1
-  m_TransitionType: 6
-  m_InitialValue: {x: 0, y: 0, z: 0}
-  m_FinalValue: {x: 5, y: 10, z: 0}
-  OnValueUpdated:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 828645310}
-        m_TargetAssemblyTypeName: UnityEngine.Transform, UnityEngine
-        m_MethodName: set_position
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnAnimationBegin:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAnimationEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  _InterpolateX:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.4069619
-      value: 1.4379275
-      inSlope: 0.16849993
-      outSlope: 0.16849993
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.65572983
-      outWeight: 0
-    - serializedVersion: 3
-      time: 2.5
-      value: 1
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 3.75
-      value: 1.5
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _InterpolateY:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.78125
-      value: 1.1276779
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 2.5
-      value: 1
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 3.75
-      value: 1.5
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _InterpolateZ:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 2.5
-      value: 1
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 3.75
-      value: 1.5
-      inSlope: 0.4
-      outSlope: 0.4
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  _AnimationMode: 0
+  _AnimationDuration: 1
+  _AnimationStartDelay: 1
+  _TransitionType: 9
+  _EaseType: 1
 --- !u!43 &877540895
 Mesh:
   m_ObjectHideFlags: 0
